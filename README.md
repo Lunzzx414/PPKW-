@@ -19,3 +19,4 @@ Next steps you might want:
 - Add real images and content.
 - Hook the contact form to an API.
 - Improve accessibility (aria labels, focus states).
+.
