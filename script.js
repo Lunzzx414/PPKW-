@@ -72,21 +72,39 @@ document.addEventListener('click', (e)=>{
 });
 
 // open product modal from menu items
-document.addEventListener('DOMContentLoaded', ()=>{
-  document.querySelectorAll('.menu-grid li').forEach(li=>{
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.menu-grid li').forEach(li => {
     li.style.cursor = 'pointer';
-    li.addEventListener('click', ()=>{
+
+    li.addEventListener('click', () => {
       const name = li.dataset.name || li.querySelector('strong')?.textContent;
-      const price = li.dataset.price || li.querySelector('span')?.textContent.replace('$','');
+
+      // ambil harga jadi angka (hapus $, Rp, titik, dll)
+      const price = parseInt(
+        li.dataset.price ||
+        li.querySelector('span')?.textContent.replace(/[^\d]/g, '')
+      );
+
       const img = li.dataset.img || li.querySelector('img')?.src;
+
+      // format Rupiah
+      const formatIDR = (value) =>
+        new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0
+        }).format(value);
+
       document.getElementById('modalName').textContent = name;
-      document.getElementById('modalPrice').textContent = `$Rupiah{price}`;
-      document.getElementById('buyPrice').textContent = `$Rupiah{price}`;
+      document.getElementById('modalPrice').textContent = formatIDR(price);
+      document.getElementById('buyPrice').textContent = formatIDR(price);
       document.getElementById('modalImg').src = img;
       document.getElementById('modalImg').alt = name;
+
       openModal('productModal');
     });
   });
+});
 
   // buy -> open payment
   document.getElementById('buyBtn').addEventListener('click', ()=>{
@@ -114,3 +132,4 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 
 });
+
