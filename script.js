@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
       const price = li.dataset.price || li.querySelector('span')?.textContent.replace('$','');
       const img = li.dataset.img || li.querySelector('img')?.src;
       document.getElementById('modalName').textContent = name;
-      document.getElementById('modalPrice').textContent = `$${price}`;
-      document.getElementById('buyPrice').textContent = `$${price}`;
+      document.getElementById('modalPrice').textContent = `$Rupiah{price}`;
+      document.getElementById('buyPrice').textContent = `$Rupiah{price}`;
       document.getElementById('modalImg').src = img;
       document.getElementById('modalImg').alt = name;
       openModal('productModal');
@@ -112,4 +112,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
       document.querySelectorAll('.modal[aria-hidden="false"]').forEach(m=> closeModal(m.id));
     }
   });
+
 });
